@@ -3,8 +3,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.*;
 
 public class BallGame extends JFrame // 繼承父類Jframe
+public class BallGame extends JFrame implements KeyListener
 {
 	static int score;
 	
@@ -41,5 +43,11 @@ public class BallGame extends JFrame // 繼承父類Jframe
   {
     ball.moveBall();
   }
+
+	Racquet racquet = new Racquet(this);  // 這裡建立一個racquet物件,this作為引數讓Racquet類可以獲取Window的成員資訊
+	racquet.paint(g2d);
+
+	this.addKeyListener(this); // 增加鍵盤監聽器
+
 }
 
