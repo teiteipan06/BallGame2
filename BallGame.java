@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.*;
+import java.awt.event.KeyEvent;
+
 
 public class BallGame extends JFrame // 繼承父類Jframe
 public class BallGame extends JFrame implements KeyListener
@@ -48,6 +50,44 @@ public class BallGame extends JFrame implements KeyListener
 	racquet.paint(g2d);
 
 	this.addKeyListener(this); // 增加鍵盤監聽器
+
+	// KeyEvent 當以下三種方法的任何一種方法發生時，KeyListener鍵盤監聽器就會啟動KeyEvent
+
+public void keyPressed(KeyEvent e) { // 按下鍵盤的動作
+	racquet.KeyPressed(e);
+}
+
+public void keyReleased(KeyEvent e) { // 放開鍵盤的動作
+	racquet.KeyReleased(e);
+}
+
+public void keyTyped(KeyEvent e) { // 按下鍵盤與放開鍵盤之間的動作
+	// 就算不會使用到這個方法，還是要定義
+}
+
+int xa = 0; // 移動單位
+
+public void KeyPressed(KeyEvent e) {  // 鍵盤按下時，移動
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) // 往左移動
+            xa = -2;
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) // 往右移動
+            xa = 2;
+}
+
+public void KeyReleased(KeyEvent e) { // 鍵盤放開時，不移動
+        xa = 0;
+}
+
+public void moveRacquet() {
+    if (x + xa < window.getWidth() - 120 && x + xa > 0) // 移動座標 小於右邊邊界 且 大於左邊邊界
+        x += xa;
+}
+
+private void move() 
+{
+    ball.moveBall();
+    racquet.moveRacquet();
+}
 
 }
 
